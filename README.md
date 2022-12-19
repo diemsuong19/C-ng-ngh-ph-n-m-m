@@ -1,2 +1,2 @@
-# C-ng-ngh-ph-n-m-m
+# Cong nghe phan mem
 Quản lý chuỗi cung ứng
