@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyCuaHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CHITIETCUNGUNG">
+    <Key>
+      <PropertyRef Name="SoPhieu" />
+    </Key>
+    <Property Name="SoPhieu" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="MaHangHoa" Type="char" MaxLength="50" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="ThanhTien" Type="int" />
+  </EntityType>
+  <EntityType Name="HANGHOA">
+    <Key>
+      <PropertyRef Name="MaHangHoa" />
+    </Key>
+    <Property Name="MaHangHoa" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="TenHangHoa" Type="nvarchar" MaxLength="100" />
+    <Property Name="QuyCach" Type="nvarchar" MaxLength="100" />
+    <Property Name="DonViTinh" Type="nvarchar" MaxLength="100" />
+    <Property Name="DonGia" Type="int" />
+    <Property Name="MaLoaiHangHoa" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="KHANANG">
+    <Key>
+      <PropertyRef Name="MaNhaCungCap" />
+      <PropertyRef Name="MaHangHoa" />
+    </Key>
+    <Property Name="MaNhaCungCap" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="MaHangHoa" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LOAIHANGHOA">
+    <Key>
+      <PropertyRef Name="MaLoaiHangHoa" />
+    </Key>
+    <Property Name="MaLoaiHangHoa" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="TenHangHoa" Type="nvarchar" MaxLength="100" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="NHACUNGCAP">
+    <Key>
+      <PropertyRef Name="MaNhaCungCap" />
+    </Key>
+    <Property Name="MaNhaCungCap" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="TenNhaCungCap" Type="nvarchar" MaxLength="100" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+    <Property Name="DienThoai" Type="int" />
+    <Property Name="MaTaiKhoan" Type="char" MaxLength="50" />
+    <Property Name="KhuVuc" Type="nvarchar" MaxLength="100" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PHIEUCUNGUNG">
+    <Key>
+      <PropertyRef Name="SoPhieu" />
+    </Key>
+    <Property Name="SoPhieu" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="NgayLapPhieu" Type="datetime" />
+    <Property Name="TriGiaPhieu" Type="int" />
+    <Property Name="MaNhaCungCap" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="fk">
+    <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
+    <End Role="PHIEUCUNGUNG" Type="Self.PHIEUCUNGUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHACUNGCAP">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Principal>
+      <Dependent Role="PHIEUCUNGUNG">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_mahang">
+    <End Role="HANGHOA" Type="Self.HANGHOA" Multiplicity="0..1" />
+    <End Role="CHITIETCUNGUNG" Type="Self.CHITIETCUNGUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGHOA">
+        <PropertyRef Name="MaHangHoa" />
+      </Principal>
+      <Dependent Role="CHITIETCUNGUNG">
+        <PropertyRef Name="MaHangHoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_mahangkhanang">
+    <End Role="HANGHOA" Type="Self.HANGHOA" Multiplicity="1" />
+    <End Role="KHANANG" Type="Self.KHANANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGHOA">
+        <PropertyRef Name="MaHangHoa" />
+      </Principal>
+      <Dependent Role="KHANANG">
+        <PropertyRef Name="MaHangHoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_maloai">
+    <End Role="LOAIHANGHOA" Type="Self.LOAIHANGHOA" Multiplicity="0..1" />
+    <End Role="HANGHOA" Type="Self.HANGHOA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAIHANGHOA">
+        <PropertyRef Name="MaLoaiHangHoa" />
+      </Principal>
+      <Dependent Role="HANGHOA">
+        <PropertyRef Name="MaLoaiHangHoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_manhacungcap">
+    <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="1" />
+    <End Role="KHANANG" Type="Self.KHANANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHACUNGCAP">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Principal>
+      <Dependent Role="KHANANG">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sophieu">
+    <End Role="PHIEUCUNGUNG" Type="Self.PHIEUCUNGUNG" Multiplicity="1" />
+    <End Role="CHITIETCUNGUNG" Type="Self.CHITIETCUNGUNG" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PHIEUCUNGUNG">
+        <PropertyRef Name="SoPhieu" />
+      </Principal>
+      <Dependent Role="CHITIETCUNGUNG">
+        <PropertyRef Name="SoPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyCuaHangModelStoreContainer">
+    <EntitySet Name="CHITIETCUNGUNG" EntityType="Self.CHITIETCUNGUNG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HANGHOA" EntityType="Self.HANGHOA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHANANG" EntityType="Self.KHANANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOAIHANGHOA" EntityType="Self.LOAIHANGHOA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NHACUNGCAP" EntityType="Self.NHACUNGCAP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHIEUCUNGUNG" EntityType="Self.PHIEUCUNGUNG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk" Association="Self.fk">
+      <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
+      <End Role="PHIEUCUNGUNG" EntitySet="PHIEUCUNGUNG" />
+    </AssociationSet>
+    <AssociationSet Name="fk_mahang" Association="Self.fk_mahang">
+      <End Role="HANGHOA" EntitySet="HANGHOA" />
+      <End Role="CHITIETCUNGUNG" EntitySet="CHITIETCUNGUNG" />
+    </AssociationSet>
+    <AssociationSet Name="fk_mahangkhanang" Association="Self.fk_mahangkhanang">
+      <End Role="HANGHOA" EntitySet="HANGHOA" />
+      <End Role="KHANANG" EntitySet="KHANANG" />
+    </AssociationSet>
+    <AssociationSet Name="fk_maloai" Association="Self.fk_maloai">
+      <End Role="LOAIHANGHOA" EntitySet="LOAIHANGHOA" />
+      <End Role="HANGHOA" EntitySet="HANGHOA" />
+    </AssociationSet>
+    <AssociationSet Name="fk_manhacungcap" Association="Self.fk_manhacungcap">
+      <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
+      <End Role="KHANANG" EntitySet="KHANANG" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sophieu" Association="Self.fk_sophieu">
+      <End Role="PHIEUCUNGUNG" EntitySet="PHIEUCUNGUNG" />
+      <End Role="CHITIETCUNGUNG" EntitySet="CHITIETCUNGUNG" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

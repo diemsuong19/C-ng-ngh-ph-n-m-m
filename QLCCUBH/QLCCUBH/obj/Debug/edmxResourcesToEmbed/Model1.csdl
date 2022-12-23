@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyCuaHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CHITIETCUNGUNG">
+    <Key>
+      <PropertyRef Name="SoPhieu" />
+    </Key>
+    <Property Name="SoPhieu" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaHangHoa" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="ThanhTien" Type="Int32" />
+    <NavigationProperty Name="HANGHOA" Relationship="Self.fk_mahang" FromRole="CHITIETCUNGUNG" ToRole="HANGHOA" />
+    <NavigationProperty Name="PHIEUCUNGUNG" Relationship="Self.fk_sophieu" FromRole="CHITIETCUNGUNG" ToRole="PHIEUCUNGUNG" />
+  </EntityType>
+  <EntityType Name="HANGHOA">
+    <Key>
+      <PropertyRef Name="MaHangHoa" />
+    </Key>
+    <Property Name="MaHangHoa" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenHangHoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="QuyCach" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DonViTinh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DonGia" Type="Int32" />
+    <Property Name="MaLoaiHangHoa" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CHITIETCUNGUNGs" Relationship="Self.fk_mahang" FromRole="HANGHOA" ToRole="CHITIETCUNGUNG" />
+    <NavigationProperty Name="KHANANGs" Relationship="Self.fk_mahangkhanang" FromRole="HANGHOA" ToRole="KHANANG" />
+    <NavigationProperty Name="LOAIHANGHOA" Relationship="Self.fk_maloai" FromRole="HANGHOA" ToRole="LOAIHANGHOA" />
+  </EntityType>
+  <EntityType Name="KHANANG">
+    <Key>
+      <PropertyRef Name="MaNhaCungCap" />
+      <PropertyRef Name="MaHangHoa" />
+    </Key>
+    <Property Name="MaNhaCungCap" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaHangHoa" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HANGHOA" Relationship="Self.fk_mahangkhanang" FromRole="KHANANG" ToRole="HANGHOA" />
+    <NavigationProperty Name="NHACUNGCAP" Relationship="Self.fk_manhacungcap" FromRole="KHANANG" ToRole="NHACUNGCAP" />
+  </EntityType>
+  <EntityType Name="LOAIHANGHOA">
+    <Key>
+      <PropertyRef Name="MaLoaiHangHoa" />
+    </Key>
+    <Property Name="MaLoaiHangHoa" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenHangHoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HANGHOAs" Relationship="Self.fk_maloai" FromRole="LOAIHANGHOA" ToRole="HANGHOA" />
+  </EntityType>
+  <EntityType Name="NHACUNGCAP">
+    <Key>
+      <PropertyRef Name="MaNhaCungCap" />
+    </Key>
+    <Property Name="MaNhaCungCap" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenNhaCungCap" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoai" Type="Int32" />
+    <Property Name="MaTaiKhoan" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="KhuVuc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="KHANANGs" Relationship="Self.fk_manhacungcap" FromRole="NHACUNGCAP" ToRole="KHANANG" />
+    <NavigationProperty Name="PHIEUCUNGUNGs" Relationship="Self.fk" FromRole="NHACUNGCAP" ToRole="PHIEUCUNGUNG" />
+  </EntityType>
+  <EntityType Name="PHIEUCUNGUNG">
+    <Key>
+      <PropertyRef Name="SoPhieu" />
+    </Key>
+    <Property Name="SoPhieu" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NgayLapPhieu" Type="DateTime" Precision="3" />
+    <Property Name="TriGiaPhieu" Type="Int32" />
+    <Property Name="MaNhaCungCap" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CHITIETCUNGUNG" Relationship="Self.fk_sophieu" FromRole="PHIEUCUNGUNG" ToRole="CHITIETCUNGUNG" />
+    <NavigationProperty Name="NHACUNGCAP" Relationship="Self.fk" FromRole="PHIEUCUNGUNG" ToRole="NHACUNGCAP" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="fk_mahang">
+    <End Role="HANGHOA" Type="Self.HANGHOA" Multiplicity="0..1" />
+    <End Role="CHITIETCUNGUNG" Type="Self.CHITIETCUNGUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGHOA">
+        <PropertyRef Name="MaHangHoa" />
+      </Principal>
+      <Dependent Role="CHITIETCUNGUNG">
+        <PropertyRef Name="MaHangHoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sophieu">
+    <End Role="PHIEUCUNGUNG" Type="Self.PHIEUCUNGUNG" Multiplicity="1" />
+    <End Role="CHITIETCUNGUNG" Type="Self.CHITIETCUNGUNG" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PHIEUCUNGUNG">
+        <PropertyRef Name="SoPhieu" />
+      </Principal>
+      <Dependent Role="CHITIETCUNGUNG">
+        <PropertyRef Name="SoPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_mahangkhanang">
+    <End Role="HANGHOA" Type="Self.HANGHOA" Multiplicity="1" />
+    <End Role="KHANANG" Type="Self.KHANANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGHOA">
+        <PropertyRef Name="MaHangHoa" />
+      </Principal>
+      <Dependent Role="KHANANG">
+        <PropertyRef Name="MaHangHoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_maloai">
+    <End Role="LOAIHANGHOA" Type="Self.LOAIHANGHOA" Multiplicity="0..1" />
+    <End Role="HANGHOA" Type="Self.HANGHOA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAIHANGHOA">
+        <PropertyRef Name="MaLoaiHangHoa" />
+      </Principal>
+      <Dependent Role="HANGHOA">
+        <PropertyRef Name="MaLoaiHangHoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_manhacungcap">
+    <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="1" />
+    <End Role="KHANANG" Type="Self.KHANANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHACUNGCAP">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Principal>
+      <Dependent Role="KHANANG">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk">
+    <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
+    <End Role="PHIEUCUNGUNG" Type="Self.PHIEUCUNGUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHACUNGCAP">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Principal>
+      <Dependent Role="PHIEUCUNGUNG">
+        <PropertyRef Name="MaNhaCungCap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyCuaHangEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CHITIETCUNGUNGs" EntityType="Self.CHITIETCUNGUNG" />
+    <EntitySet Name="HANGHOAs" EntityType="Self.HANGHOA" />
+    <EntitySet Name="KHANANGs" EntityType="Self.KHANANG" />
+    <EntitySet Name="LOAIHANGHOAs" EntityType="Self.LOAIHANGHOA" />
+    <EntitySet Name="NHACUNGCAPs" EntityType="Self.NHACUNGCAP" />
+    <EntitySet Name="PHIEUCUNGUNGs" EntityType="Self.PHIEUCUNGUNG" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="fk_mahang" Association="Self.fk_mahang">
+      <End Role="HANGHOA" EntitySet="HANGHOAs" />
+      <End Role="CHITIETCUNGUNG" EntitySet="CHITIETCUNGUNGs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sophieu" Association="Self.fk_sophieu">
+      <End Role="PHIEUCUNGUNG" EntitySet="PHIEUCUNGUNGs" />
+      <End Role="CHITIETCUNGUNG" EntitySet="CHITIETCUNGUNGs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_mahangkhanang" Association="Self.fk_mahangkhanang">
+      <End Role="HANGHOA" EntitySet="HANGHOAs" />
+      <End Role="KHANANG" EntitySet="KHANANGs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_maloai" Association="Self.fk_maloai">
+      <End Role="LOAIHANGHOA" EntitySet="LOAIHANGHOAs" />
+      <End Role="HANGHOA" EntitySet="HANGHOAs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_manhacungcap" Association="Self.fk_manhacungcap">
+      <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
+      <End Role="KHANANG" EntitySet="KHANANGs" />
+    </AssociationSet>
+    <AssociationSet Name="fk" Association="Self.fk">
+      <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
+      <End Role="PHIEUCUNGUNG" EntitySet="PHIEUCUNGUNGs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

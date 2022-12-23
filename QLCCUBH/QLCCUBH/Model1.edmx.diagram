@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="910b1cca0f2b47c7819d92264a1ae29a" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.CHITIETCUNGUNG" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.HANGHOA" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.KHANANG" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.LOAIHANGHOA" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.NHACUNGCAP" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.PHIEUCUNGUNG" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCuaHangModel.sysdiagram" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="QuanLyCuaHangModel.fk_mahang" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCuaHangModel.fk_sophieu" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCuaHangModel.fk_mahangkhanang" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCuaHangModel.fk_maloai" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCuaHangModel.fk_manhacungcap" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCuaHangModel.fk" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
